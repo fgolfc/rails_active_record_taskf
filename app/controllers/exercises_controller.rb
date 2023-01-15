@@ -3,15 +3,14 @@ class ExercisesController < ApplicationController
     # 【要件】注文されていないすべての料理を返すこと
     #   * left_outer_joinsを使うこと
     @foods = Food.left_outer_joins(:order_foods).where(order_foods: {food_id: nil})
-
   end
 
   def exercise2
     # 【要件】注文されていない料理を提供しているすべてのお店を返すこと
     #   * left_outer_joinsを使うこと
-    @
-    shops = Shop.left_outer_joins(:foods).where(order_foods: { food_id: nil }, name: "田中")
-    (order_foods: {food_id: nil}).distinct
+    @shops = Shop.left_outer_joins(foods: :order_foods).where(order_foods: { food_id: nil }).distinct
+    # shops = Shop.left_outer_joins(:foods).where(order_foods: { food_id: nil }, name: "田中")
+    # (order_foods: {food_id: nil}).distinct
   end
 
   def exercise3 
