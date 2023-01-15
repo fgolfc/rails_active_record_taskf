@@ -9,16 +9,13 @@ class ExercisesController < ApplicationController
     # 【要件】注文されていない料理を提供しているすべてのお店を返すこと
     #   * left_outer_joinsを使うこと
     @shops = Shop.left_outer_joins(foods: :order_foods).where(order_foods: { food_id: nil }).distinct
-    # shops = Shop.left_outer_joins(:foods).where(order_foods: { food_id: nil }, name: "田中")
-    # (order_foods: {food_id: nil}).distinct
   end
 
   def exercise3 
     # 【要件】配達先の一番多い住所を返すこと
     #   * joinsを使うこと
     #   * 取得したAddressのインスタンスにorders_countと呼びかけると注文の数を返すこと
-    @address = Address.joins(:orders).find_with_ids(address).order
-    .maximum.count('orders.address_id AS orders_count')
+    @address = Address.joins(:orders).distinct.select('addresses.*, COUNT(orders*) AS orders_count').group('address.id')
   end
 
   def exercise4 
