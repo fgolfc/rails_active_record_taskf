@@ -15,7 +15,7 @@ class ExercisesController < ApplicationController
     # 【要件】配達先の一番多い住所を返すこと
     #   * joinsを使うこと
     #   * 取得したAddressのインスタンスにorders_countと呼びかけると注文の数を返すこと
-    @address = Address.joins(:orders).select('address_id').group('address_id').count(:orders).first
+    @address = Address.joins(:orders).order(:id).select('address_id').group('address_id')
   end
 
   def exercise4 
