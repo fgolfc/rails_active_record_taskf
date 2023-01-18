@@ -33,6 +33,5 @@ class ExercisesController < ApplicationController
       .group("customers.id")
       .order("foods_price_sum DESC")
       .first
-    @customer = Customer.joins(orders: {foods: :order_foods}).select('SUM(foods.price) AS foods_price_sum').group(:id).first
   end
 end
